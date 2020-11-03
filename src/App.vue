@@ -1,6 +1,9 @@
 <template>
   <div id="app">
     <h1>COVID-19</h1>
+    <ul>
+      <li v-for="borough in boroughs" :key="borough">{{ borough }}</li>
+    </ul>
     <div id="bar-total"></div>
   </div>
 </template>
@@ -15,13 +18,26 @@ export default {
     return {
       covidApi: 'https://data.london.gov.uk/api/table/s8c9t_j4fs2?$limit=5000',
       covidCsv: 'data/phe_cases_london_boroughs.csv',
-      covidData: null
+      covidData: [],
+    }
+  },
+  computed: {
+    boroughs() {
+      const boroughs = []
+        // Find unique area names in data
+        this.covidData.forEach((el) => {
+          // If the current area_name is not in the boroughs array, add it
+          if (!boroughs.includes(el.area_name)) {
+            boroughs.push(el.area_name)
+          }
+        })
+      return boroughs
     }
   },
   methods: {
     getLocalData(csv) {
       const parseDate = d3.timeParse('%Y-%m-%d')
-      const data = d3.csv(csv).then((data) => {
+      d3.csv(csv).then((data) => {
         data.forEach((d) => {
           // Convert strings to integers
           d.new_cases = +d.new_cases
@@ -29,14 +45,13 @@ export default {
           // Convert date string to date format
           d.date = parseDate(d.date)
         })
-        console.log(data)
+        this.covidData = data
       })
-      this.covidData = data
+      
     },
     getData(api) {
       this.$http.get(api).then((response) => {
         this.covidData = response.data.rows
-        console.log(response.data.rows)
       })
     }
   },
