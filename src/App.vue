@@ -1,9 +1,7 @@
 <template>
   <div id="app">
     <h1>COVID-19</h1>
-    <ul>
-      <li v-for="borough in boroughs" :key="borough">{{ borough }}</li>
-    </ul>
+    {{ currentTotal.total_cases }}
     <div id="bar-total"></div>
   </div>
 </template>
@@ -19,6 +17,9 @@ export default {
       covidApi: 'https://data.london.gov.uk/api/table/s8c9t_j4fs2?$limit=5000',
       covidCsv: 'data/phe_cases_london_boroughs.csv',
       covidData: [],
+      combinedData: [],
+      groupedByDate:[],
+      currentFrame: 0,
     }
   },
   computed: {
@@ -32,35 +33,56 @@ export default {
           }
         })
       return boroughs
+    },
+    currentTotal() {
+      return this.combinedData[this.currentFrame]
     }
   },
   methods: {
     getLocalData(csv) {
-      const parseDate = d3.timeParse('%Y-%m-%d')
-      d3.csv(csv).then((data) => {
+      return d3.csv(csv).then((data) => {
         data.forEach((d) => {
           // Convert strings to integers
           d.new_cases = +d.new_cases
           d.total_cases = +d.total_cases
-          // Convert date string to date format
-          d.date = parseDate(d.date)
         })
         this.covidData = data
+        console.log(data)
+        
       })
-      
     },
     getData(api) {
-      this.$http.get(api).then((response) => {
-        this.covidData = response.data.rows
-      })
+      return this.$http.get(api)
+        .then((response) => {
+          this.covidData = response.data.rows
+        })
+    },
+    getTotalsByDate(data) {
+      // Sum total_cases from all boroughs by date
+      let totalsByDate = d3.rollup(data, v => d3.sum(v, d => d.total_cases), d => d.date)
+      console.log(totalsByDate)
+      // Restore data structure
+      totalsByDate = [...totalsByDate].flatMap(([key, value]) => ({date: key, total_cases: value}))
+      console.log(totalsByDate)
+
+      return totalsByDate
+    },
+    parseDate(dateString) {
+      // Convert date string to date format
+      const parseDate = d3.timeParse('%Y-%m-%d')
+      return parseDate(dateString)
     }
   },
-  mounted() {
+  async created() {
     /* Fetch data from API */
     // this.getData(this.covidApi)
 
     /* Fetch local data */
-    this.getLocalData(this.covidCsv)
+    await this.getLocalData(this.covidCsv)
+    
+    // Get an array of [date, total_cases] across all areas and store it in
+    this.combinedData = this.getTotalsByDate(this.covidData)
+    
   }
 }
 </script>
