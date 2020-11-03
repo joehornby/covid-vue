@@ -11,9 +11,11 @@ import * as d3 from 'd3'
 export default {
   name: 'COVID',
   components: {},
-  data: {
-    covidCSV: '~assets/phe_cases_london_boroughs.csv',
-    covidData: []
+  data() {
+    return {
+      covidCSV: '~assets/phe_cases_london_boroughs.csv',
+      covidData: []
+    }
   },
   methods: {
     async getLocalData(csv) {
@@ -32,7 +34,6 @@ export default {
   mounted() {
     // Fetch data on mount
     this.getLocalData(this.covidCSV)
-  }
   }
 }
 </script>
