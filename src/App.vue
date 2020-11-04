@@ -46,22 +46,20 @@ export default {
     }
   },
   methods: {
-    getLocalData(csv) {
+    loadData(csv) {
       return d3.csv(csv).then((data) => {
         data.forEach((d) => {
           // Convert strings to integers
           d.new_cases = +d.new_cases
           d.total_cases = +d.total_cases
         })
-        this.covidData = data
-        console.log(data)
-        
+        return data
       })
     },
     getData(api) {
-      return this.$http.get(api)
+      this.$http.get(api)
         .then((response) => {
-          this.covidData = response.data.rows
+          return response.data.rows
         })
     },
     getTotalsByDate(data) {
