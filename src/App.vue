@@ -1,8 +1,14 @@
 <template>
   <div id="app">
     <h1>COVID-19</h1>
-    <BoroughMap />
-    <TotalBar />
+    <section :v-if="dataLoaded" id="data">
+      <BoroughMap />
+      <TotalBar 
+        v-if="dataLoaded" 
+        :totalCases="currentTotal" 
+        :maxCases="maxCases" 
+        :windowHeight="windowHeight" />
+    </section>
   </div>
 </template>
 
@@ -43,7 +49,13 @@ export default {
       return boroughs
     },
     currentTotal() {
-      return this.combinedData[this.currentFrame]
+      return this.combinedData[this.currentFrame].total_cases
+    },
+    stopIndex() {
+      return this.combinedData.length - 1
+    },
+    maxCases() {
+      return Math.max(...this.combinedData.map(o => o.total_cases), 0)
     }
   },
   methods: {

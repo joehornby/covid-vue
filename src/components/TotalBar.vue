@@ -1,18 +1,33 @@
 <template>
-  <svg height="100%" width="100%" viewbox="0 0 100 100" preserveAspectRatio="none">
-    <g>
-      <rect id="total-bar" x="0" y="0" width="100%" height="80%">
+  <div class="svg-container">
+    <svg viewbox="0 0 100 100" preserveAspectRatio="none">
+      <rect id="total-bar" :transform="`scale(1,-1) translate(0, -${windowHeight})`" x="0" y="0" width="100%" :height="`${height}%`">
       </rect>
-    </g>
-  </svg>
+    </svg>
+  </div>
+  
 </template>
 
 <script>
 export default {
-  setup () {
+  props: {
+    totalCases: {
+      type: Number,
+      required: true
+      },
+    maxCases: {
+      type: Number,
+      default: 30000
+      },
+    windowHeight: {
+      type: Number
+    }
+  },
+  computed: {
+    height() {
+      return this.totalCases / this.maxCases * 100
+    },
     
-
-    return {}
   }
 }
 </script>
@@ -20,7 +35,7 @@ export default {
 <style lang="scss" scoped>
   @import '@/styles/variables';
 
-  svg {
+  .svg-container {
     position: fixed;
     bottom: 0;
     left: 0;
@@ -28,5 +43,14 @@ export default {
     right: 0;
     fill: $light-grey;
     mix-blend-mode: exclusion;
+    svg {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
   }
 </style>
