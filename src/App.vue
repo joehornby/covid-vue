@@ -1,8 +1,7 @@
 <template>
   <div id="app">
     <h1>COVID-19</h1>
-    {{ currentTotal.total_cases }}
-    <div id="bar-total"></div>
+    <TotalBar />
   </div>
 </template>
 
