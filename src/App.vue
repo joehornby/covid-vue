@@ -25,6 +25,7 @@ export default {
       covidData: [],
       combinedData: [],
       groupedByDate:[],
+      dataLoaded: false,
       currentFrame: 0,
       windowHeight: window.innerHeight,
     }
