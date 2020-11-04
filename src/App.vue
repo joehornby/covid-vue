@@ -108,11 +108,18 @@ export default {
   margin:0;
   padding:0;
 }
-
+html, body, #app {
+  height: 100%;
+  width: 100%;
+}
 body {
   background-color: $light-grey;
   overflow: hidden;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+#app {
+  color: $light-grey;
+  mix-blend-mode: exclusion;
 }
 
 </style>
