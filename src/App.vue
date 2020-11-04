@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <h1>COVID-19</h1>
+    <BoroughMap />
     <TotalBar />
   </div>
 </template>
@@ -8,11 +9,13 @@
 <script>
 import * as d3 from 'd3'
 import TotalBar from './components/TotalBar'
+import BoroughMap from './components/BoroughMap'
 
 export default {
   name: 'COVID',
   components: {
-    TotalBar
+    TotalBar,
+    BoroughMap
   },
   data() {
     return {
