@@ -21,6 +21,7 @@ export default {
     return {
       covidApi: 'https://data.london.gov.uk/api/table/s8c9t_j4fs2?$limit=5000',
       covidCsv: 'data/phe_cases_london_boroughs.csv',
+      useApi: false,
       covidData: [],
       combinedData: [],
       groupedByDate:[],
@@ -79,16 +80,23 @@ export default {
     }
   },
   async created() {
-    /* Fetch data from API */
-    // this.getData(this.covidApi)
+    try {
+      if (this.useApi) {
+        // Fetch data from API
+        this.covidData = await this.getData(this.covidApi)
+      } else {
+        // Fetch local data
+        this.covidData = await this.loadData(this.covidCsv)
+      }  
 
-    /* Fetch local data */
-    await this.getLocalData(this.covidCsv)
-    
-    // Get an array of [date, total_cases] across all areas and store it in
-    this.combinedData = this.getTotalsByDate(this.covidData)
-    
-  }
+      // Get an array of [date, total_cases] across all areas and store it in
+      this.combinedData = await this.getTotalsByDate(this.covidData)
+      this.dataLoaded = true
+      
+    } catch (err) {
+      console.log(err)
+    }
+  },
 }
 </script>
 
