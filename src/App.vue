@@ -7,10 +7,13 @@
 
 <script>
 import * as d3 from 'd3'
+import TotalBar from './components/TotalBar'
 
 export default {
   name: 'COVID',
-  components: {},
+  components: {
+    TotalBar
+  },
   data() {
     return {
       covidApi: 'https://data.london.gov.uk/api/table/s8c9t_j4fs2?$limit=5000',
