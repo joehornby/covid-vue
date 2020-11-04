@@ -9,6 +9,7 @@
 </template>
 
 <script>
+
 export default {
   props: {
     totalCases: {
@@ -19,15 +20,16 @@ export default {
       type: Number,
       default: 30000
       },
-    windowHeight: {
-      type: Number
-    }
+    windowHeight: Number,
+    updateInterval: Number
+  },
+  data() {
+    return {}
   },
   computed: {
     height() {
       return this.totalCases / this.maxCases * 100
     },
-    
   }
 }
 </script>
@@ -43,6 +45,7 @@ export default {
     right: 0;
     fill: $light-grey;
     mix-blend-mode: exclusion;
+    pointer-events: none;
     svg {
       position: fixed;
       width: 100%;
@@ -51,6 +54,9 @@ export default {
       right: 0;
       bottom: 0;
       left: 0;
+      rect {
+        transition: height 0.5s linear;
+      }
     }
   }
 </style>
