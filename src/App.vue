@@ -26,6 +26,7 @@ export default {
       combinedData: [],
       groupedByDate:[],
       currentFrame: 0,
+      windowHeight: window.innerHeight,
     }
   },
   computed: {
@@ -77,8 +78,11 @@ export default {
       // Convert date string to date format
       const parseDate = d3.timeParse('%Y-%m-%d')
       return parseDate(dateString)
+    },
+    onResize() {
+      this.windowHeight = window.innerHeight
     }
-  },
+  }, 
   async created() {
     try {
       if (this.useApi) {
@@ -96,6 +100,14 @@ export default {
     } catch (err) {
       console.log(err)
     }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      window.addEventListener('resize', this.onResize);
+    })
+  },
+  beforeDestroy() { 
+    window.removeEventListener('resize', this.onResize); 
   },
 }
 </script>
