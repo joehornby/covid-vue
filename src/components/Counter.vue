@@ -1,8 +1,6 @@
 <template>
   <div class="counter-container">
-    <div class="counter">
-      <span>{{ totalCases }}</span>
-    </div>
+    <span class="counter">{{ totalCases }}</span>
   </div>
 </template>
 
@@ -28,19 +26,24 @@ export default {
     right: 0;
     bottom: 0;
     pointer-events: none;
+    display: flex;
+    // flex-direction: column;
+    align-items: flex-end;
   }
   .counter {
+    font-family: $display-font;
+    font-size: calc(calc(25vw + 25vh) / 2);
     color: $light-grey;
     mix-blend-mode: exclusion;
-    position: relative;
+    padding-left: 0.25em;
+
     @media(min-width: $bp) {
-      transform-origin: bottom center;
-      transform: rotate(-90deg);
+      transform-origin: center;
+      transform: rotate(180deg);
+      writing-mode: vertical-lr;
       bottom: 0;
-    }
-    span {
-      font-family: $display-font;
-      font-size: calc(calc(25vw + 25vh) / 2);
+      font-size: 40vh;
+      padding: 0.25em 0 0 0; // Strange order = writing mode + transform
     }
   }
 </style>
