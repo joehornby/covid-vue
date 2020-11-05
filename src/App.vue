@@ -1,9 +1,16 @@
 <template>
   <div id="app">
-    <h1>COVID-19</h1>
+    <header v-if="dataLoaded">
+      <h1>London<br/>COVID-19 Cases</h1>
+    <h2>Total cases<br/>{{ currentBorough }}</h2>
+    <h2>
+      {{ currentDate.day }}.{{ currentDate.month }}<br />
+    {{ currentDate.year }}</h2>
+    </header>
+    
     <button @click="startAnimation">Go</button>
     <section :v-if="dataLoaded" id="data">
-      <BoroughMap />
+      <BoroughMap :currentData="dataGroupedByDate[currentIndex].data" />
       <TotalBar 
         v-if="dataLoaded" 
         :totalCases="currentTotal" 
@@ -37,7 +44,7 @@ export default {
       covidData: [],
       combinedData: [],
       dataLoaded: false,
-      currentFrame: 0,
+      currentIndex: 0,
       tweenedTotal: 0,
       windowHeight: window.innerHeight,
       updateInterval: 0.5,
@@ -56,15 +63,35 @@ export default {
         })
       return boroughs
     },
+    currentBorough() {
+      return "All boroughs"
+    },
     currentTotal() {
-      return this.combinedData[this.currentFrame].total_cases
+      return this.combinedData[this.currentIndex].total_cases
+    },
+    currentDate() {
+      let dateSliced = this.combinedData[this.currentIndex].date.split("-")
+      
+      let date =  { 
+        year: dateSliced[0],
+        month: dateSliced[1], 
+        day: dateSliced[2]
+      }
+      return date 
     },
     stopIndex() {
       return this.combinedData.length - 1
     },
     maxCases() {
       return Math.max(...this.combinedData.map(o => o.total_cases), 0)
-    }
+    },
+    dataGroupedByDate() {
+      let dataByDate = d3.group(this.covidData, d => d.date)
+      // Restore data structure
+      dataByDate = [...dataByDate].flatMap(([key, value]) => ({date: key, data: value}))
+      console.log(dataByDate)
+      return dataByDate
+    },
   },
   methods: {
     loadData(csv) {
@@ -101,10 +128,10 @@ export default {
     },
     startAnimation() {
       console.log('starting animation')
-      this.currentFrame = 0
+      this.currentIndex = 0
       this.animationId = setInterval(() => {
-        if (this.currentFrame < this.stopIndex) {
-          this.currentFrame ++
+        if (this.currentIndex < this.stopIndex) {
+          this.currentIndex ++
         } else {
           clearInterval(this.animationId)
         }
@@ -154,13 +181,48 @@ html, body, #app {
   width: 100%;
 }
 body {
-  background-color: $light-grey;
   overflow: hidden;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: $light-grey;
+  background-image: radial-gradient(rgba($light-grey, 20%) 5%, transparent 5%);
+  background-position: 0 0;
+  background-size: 2rem 2rem;
+  background-blend-mode: exclusion;
 }
 #app {
   color: $light-grey;
   mix-blend-mode: exclusion;
+}
+h1, h2, h3, h4, p {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-weight: 200;
+  font-size: 2rem;
+  letter-spacing: -0.02em;
+}
+
+/* Layout */
+
+header {
+  padding: 1rem;
+  @media (min-width: $bp) {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+  }
+  
+}
+
+/* Transition */
+
+.slide-enter-active {
+  transition: all .1s linear;
+}
+.slide-leave-active {
+  transition: all .1s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-enter {
+  transform: translateY(-20px);
+}
+.slide-leave-to {
+  transform: translateY(20px);
 }
 
 </style>
