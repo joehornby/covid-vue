@@ -2,6 +2,7 @@ export const boroughInfo = [
   {
     "name" : "City of London",
     "abbr" : "CIT",
+    "area_code" : "E09000001",
     "grid" : {
       "row" : 3,
       "col" : 4
@@ -10,6 +11,7 @@ export const boroughInfo = [
   {
     "name" : "Barking and Dagenham",
     "abbr" : "BARK",
+    "area_code" : "E09000002",
     "grid" : {
       "row" : 3,
       "col" : 7
@@ -18,6 +20,7 @@ export const boroughInfo = [
   {
     "name" : "Barnet",
     "abbr" : "BARN",
+    "area_code" : "E09000003",
     "grid" : {
       "row" : 1,
       "col" : 3
@@ -26,6 +29,7 @@ export const boroughInfo = [
   {
     "name" : "Bexley",
     "abbr" : "BEXL",
+    "area_code" : "E09000004",
     "grid" : {
       "row" : 4,
       "col" : 7
@@ -34,6 +38,7 @@ export const boroughInfo = [
   {
     "name" : "Brent",
     "abbr" : "BREN",
+    "area_code" : "E09000005",
     "grid" : {
       "row" : 2,
       "col" : 2
@@ -42,6 +47,7 @@ export const boroughInfo = [
   {
     "name" : "Bromley",
     "abbr" : "BROM",
+    "area_code" : "E09000006",
     "grid" : {
       "row" : 5,
       "col" : 5
@@ -50,6 +56,7 @@ export const boroughInfo = [
   {
     "name" : "Camden",
     "abbr" : "CAM",
+    "area_code" : "E09000007",
     "grid" : {
       "row" : 2,
       "col" : 3
@@ -58,6 +65,7 @@ export const boroughInfo = [
   {
     "name" : "Croydon",
     "abbr" : "CROY",
+    "area_code" : "E09000008",
     "grid" : {
       "row" : 5,
       "col" : 4
@@ -66,6 +74,7 @@ export const boroughInfo = [
   {
     "name" : "Ealing",
     "abbr" : "EAL",
+    "area_code" : "E09000009",
     "grid" : {
       "row" : 2,
       "col" : 1
@@ -74,6 +83,7 @@ export const boroughInfo = [
   {
     "name" : "Enfield",
     "abbr" : "ENF",
+    "area_code" : "E09000010",
     "grid" : {
       "row" : 0,
       "col" : 4
@@ -82,6 +92,7 @@ export const boroughInfo = [
   {
     "name" : "Greenwich",
     "abbr" : "GRE",
+    "area_code" : "E09000011",
     "grid" : {
       "row" : 4,
       "col" : 6
@@ -90,6 +101,7 @@ export const boroughInfo = [
   {
     "name" : "Hackney",
     "abbr" : "HAC",
+    "area_code" : "E09000012",
     "grid" : {
       "row" : 2,
       "col" : 5
@@ -98,6 +110,7 @@ export const boroughInfo = [
   {
     "name" : "Hammersmith and Fulham",
     "abbr" : "HAM",
+    "area_code" : "E09000013",
     "grid" : {
       "row" : 3,
       "col" : 1
@@ -106,6 +119,7 @@ export const boroughInfo = [
   {
     "name" : "Haringey",
     "abbr" : "HARI",
+    "area_code" : "E09000014",
     "grid" : {
       "row" : 1,
       "col" : 4
@@ -114,6 +128,7 @@ export const boroughInfo = [
   {
     "name" : "Harrow",
     "abbr" : "HARR",
+    "area_code" : "E09000015",
     "grid" : {
       "row" : 1,
       "col" : 2
@@ -122,6 +137,7 @@ export const boroughInfo = [
   {
     "name" : "Havering",
     "abbr" : "HAVE",
+    "area_code" : "E09000016",
     "grid" : {
       "row" : 2,
       "col" : 7
@@ -130,6 +146,7 @@ export const boroughInfo = [
   {
     "name" : "Hillingdon",
     "abbr" : "HILL",
+    "area_code" : "E09000017",
     "grid" : {
       "row" : 2,
       "col" : 0
@@ -138,6 +155,7 @@ export const boroughInfo = [
   {
     "name" : "Hounslow",
     "abbr" : "HOUN",
+    "area_code" : "E09000018",
     "grid" : {
       "row" : 3,
       "col" : 0
@@ -146,6 +164,7 @@ export const boroughInfo = [
   {
     "name" : "Islington",
     "abbr" : "ISL",
+    "area_code" : "E09000019",
     "grid" : {
       "row" : 2,
       "col" : 4
@@ -154,6 +173,7 @@ export const boroughInfo = [
   {
     "name" : "Kensington and Chelsea",
     "abbr" : "KEN",
+    "area_code" : "E09000020",
     "grid" : {
       "row" : 3,
       "col" : 2
@@ -162,6 +182,7 @@ export const boroughInfo = [
   {
     "name" : "Kingston upon Thames",
     "abbr" : "KING",
+    "area_code" : "E09000021",
     "grid" : {
       "row" : 5,
       "col" : 2
@@ -170,6 +191,7 @@ export const boroughInfo = [
   {
     "name" : "Lambeth",
     "abbr" : "LAM",
+    "area_code" : "E09000022",
     "grid" : {
       "row" : 4,
       "col" : 3
@@ -178,6 +200,7 @@ export const boroughInfo = [
   {
     "name" : "Lewisham",
     "abbr" : "LEW",
+    "area_code" : "E09000023",
     "grid" : {
       "row" : 4,
       "col" : 5
@@ -186,6 +209,7 @@ export const boroughInfo = [
   {
     "name" : "Merton",
     "abbr" : "MERT",
+    "area_code" : "E09000024",
     "grid" : {
       "row" : 5,
       "col" : 3
@@ -194,6 +218,7 @@ export const boroughInfo = [
   {
     "name" : "Newham",
     "abbr" : "NEWH",
+    "area_code" : "E09000025",
     "grid" : {
       "row" : 3,
       "col" : 6
@@ -202,6 +227,7 @@ export const boroughInfo = [
   {
     "name" : "Redbridge",
     "abbr" : "REDB",
+    "area_code" : "E09000026",
     "grid" : {
       "row" : 2,
       "col" : 6
@@ -210,6 +236,7 @@ export const boroughInfo = [
   {
     "name" : "Richmond upon Thames",
     "abbr" : "RICH",
+    "area_code" : "E09000027",
     "grid" : {
       "row" : 4,
       "col" : 1
@@ -218,6 +245,7 @@ export const boroughInfo = [
   {
     "name" : "Southwark",
     "abbr" : "SOU",
+    "area_code" : "E09000028",
     "grid" : {
       "row" : 4,
       "col" : 4
@@ -226,6 +254,7 @@ export const boroughInfo = [
   {
     "name" : "Sutton",
     "abbr" : "SUTT",
+    "area_code" : "E09000029",
     "grid" : {
       "row" : 6,
       "col" : 3
@@ -234,6 +263,7 @@ export const boroughInfo = [
   {
     "name" : "Tower Hamlets",
     "abbr" : "TOW",
+    "area_code" : "E09000030",
     "grid" : {
       "row" : 3,
       "col" : 5
@@ -242,6 +272,7 @@ export const boroughInfo = [
   {
     "name" : "Waltham Forest",
     "abbr" : "WALT",
+    "area_code" : "E09000031",
     "grid" : {
       "row" : 1,
       "col" : 5
@@ -250,6 +281,7 @@ export const boroughInfo = [
   {
     "name" : "Wandsworth",
     "abbr" : "WAN",
+    "area_code" : "E09000032",
     "grid" : {
       "row" : 4,
       "col" : 2
@@ -258,6 +290,7 @@ export const boroughInfo = [
   {
     "name" : "Westminster",
     "abbr" : "WES",
+    "area_code" : "E09000033",
     "grid" : {
       "row" : 3,
       "col" : 3
