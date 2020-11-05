@@ -1,1 +1,21 @@
+/* Colours */
+
 $light-grey: #f2f2f2;
+
+/* Typography */
+
+@font-face {
+  font-family: 'intersect_a4-4_solid';
+  src: url('~@/assets/fonts/intersect_a_4-4_solid-numbers-201104.woff2') format('woff2'),
+       url('~@/assets/fonts/intersect_a_4-4_solid-numbers-201104.woff') format('woff'),
+       url('~@/assets/fonts/intersect_a_4-4_solid-numbers-201104.svg#intersect_a4-4_solid') format('svg');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+$display-font: 'intersect_a4-4_solid';
+
+/* Break points */
+
+$bp: 724px;
