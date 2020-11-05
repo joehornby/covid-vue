@@ -27,7 +27,6 @@ export default {
     bottom: 0;
     pointer-events: none;
     display: flex;
-    // flex-direction: column;
     align-items: flex-end;
   }
   .counter {
@@ -35,7 +34,7 @@ export default {
     font-size: calc(calc(25vw + 25vh) / 2);
     color: $light-grey;
     mix-blend-mode: exclusion;
-    padding-left: 0.25em;
+    padding-left: 2rem;
 
     @media(min-width: $bp) {
       transform-origin: center;
@@ -43,7 +42,7 @@ export default {
       writing-mode: vertical-lr;
       bottom: 0;
       font-size: 40vh;
-      padding: 0.25em 0 0 0; // Strange order = writing mode + transform
+      padding: 2rem 0 0 0; // Strange order = writing mode + transform
     }
   }
 </style>
