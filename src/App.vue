@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <h1>COVID-19</h1>
+    <button @click="startAnimation">Go</button>
     <section :v-if="dataLoaded" id="data">
       <BoroughMap />
       <TotalBar 
@@ -8,20 +9,25 @@
         :totalCases="currentTotal" 
         :maxCases="maxCases" 
         :windowHeight="windowHeight" />
+        <Counter :totalCases="currentTotal"/>
     </section>
   </div>
 </template>
 
 <script>
 import * as d3 from 'd3'
+// import * as gsap from 'gsap';
+
 import TotalBar from './components/TotalBar'
 import BoroughMap from './components/BoroughMap'
+import Counter from './components/Counter'
 
 export default {
   name: 'COVID',
   components: {
     TotalBar,
-    BoroughMap
+    BoroughMap,
+    Counter
   },
   data() {
     return {
@@ -30,10 +36,12 @@ export default {
       useApi: false,
       covidData: [],
       combinedData: [],
-      groupedByDate:[],
       dataLoaded: false,
       currentFrame: 0,
+      tweenedTotal: 0,
       windowHeight: window.innerHeight,
+      updateInterval: 0.5,
+      animationId: undefined,
     }
   },
   computed: {
@@ -78,10 +86,8 @@ export default {
     getTotalsByDate(data) {
       // Sum total_cases from all boroughs by date
       let totalsByDate = d3.rollup(data, v => d3.sum(v, d => d.total_cases), d => d.date)
-      console.log(totalsByDate)
       // Restore data structure
       totalsByDate = [...totalsByDate].flatMap(([key, value]) => ({date: key, total_cases: value}))
-      console.log(totalsByDate)
 
       return totalsByDate
     },
@@ -92,7 +98,18 @@ export default {
     },
     onResize() {
       this.windowHeight = window.innerHeight
-    }
+    },
+    startAnimation() {
+      console.log('starting animation')
+      this.currentFrame = 0
+      this.animationId = setInterval(() => {
+        if (this.currentFrame < this.stopIndex) {
+          this.currentFrame ++
+        } else {
+          clearInterval(this.animationId)
+        }
+      }, this.updateInterval * 1000)
+      }
   }, 
   async created() {
     try {
@@ -111,6 +128,7 @@ export default {
     } catch (err) {
       console.log(err)
     }
+
   },
   mounted() {
     this.$nextTick(() => {
