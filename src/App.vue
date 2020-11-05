@@ -1,29 +1,43 @@
 <template>
   <div id="app">
-    <header v-if="dataLoaded">
-      <h1>London<br/>COVID-19 Cases</h1>
-    <h2>Total cases<br/>{{ currentBorough }}</h2>
-    <h2>
-      {{ currentDate.day }}.{{ currentDate.month }}<br />
-    {{ currentDate.year }}</h2>
-    </header>
-    
-    <button @click="startAnimation">Go</button>
-    <section :v-if="dataLoaded" id="data">
-      <BoroughMap :currentData="dataGroupedByDate[currentIndex].data" />
-      <TotalBar 
-        v-if="dataLoaded" 
-        :totalCases="currentTotal" 
-        :maxCases="maxCases" 
-        :windowHeight="windowHeight" />
-        <Counter :totalCases="currentTotal"/>
-    </section>
+    <div class="wrapper" :v-if="dataLoaded">
+
+      <header>
+        <h1>London<br/>COVID-19 Cases</h1>
+      <h2>Total cases<br/>{{ currentBorough }}</h2>
+      <h2>
+        {{ currentDate.day }}.{{ currentDate.month }}<br />
+      {{ currentDate.year }}</h2>
+      </header>
+      
+      <button @click="startAnimation">Go</button>
+      <section id="data">
+        <BoroughMap :currentData="dataGroupedByDate[currentIndex].data" />
+        <TotalBar 
+          v-if="dataLoaded" 
+          :totalCases="currentTotal" 
+          :maxCases="maxCases" 
+          :windowHeight="windowHeight" />
+          <Counter :totalCases="currentTotal"/>
+      </section>
+      <div class="controls">
+        <VueSimpleRangeSlider
+                      style="width: 100px"
+                      :min=0
+                      :max=stopIndex
+                      v-model="indexRange"
+                      barColor="#f2f2f2"
+                      activeBarColor="#f2f2f2"
+              />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import * as d3 from 'd3'
-// import * as gsap from 'gsap';
+import VueSimpleRangeSlider from 'vue-simple-range-slider'
+import 'vue-simple-range-slider/dist/vueSimpleRangeSlider.css'
 
 import TotalBar from './components/TotalBar'
 import BoroughMap from './components/BoroughMap'
@@ -34,7 +48,8 @@ export default {
   components: {
     TotalBar,
     BoroughMap,
-    Counter
+    Counter,
+    VueSimpleRangeSlider,
   },
   data() {
     return {
@@ -49,6 +64,7 @@ export default {
       windowHeight: window.innerHeight,
       updateInterval: 0.5,
       animationId: undefined,
+      indexRange: [0, this.stopIndex]
     }
   },
   computed: {
@@ -71,12 +87,11 @@ export default {
     },
     currentDate() {
       let dateSliced = this.combinedData[this.currentIndex].date.split("-")
-      
       let date =  { 
-        year: dateSliced[0],
-        month: dateSliced[1], 
-        day: dateSliced[2]
-      }
+          year: dateSliced[0],
+          month: dateSliced[1], 
+          day: dateSliced[2]
+        }
       return date 
     },
     stopIndex() {
@@ -89,7 +104,6 @@ export default {
       let dataByDate = d3.group(this.covidData, d => d.date)
       // Restore data structure
       dataByDate = [...dataByDate].flatMap(([key, value]) => ({date: key, data: value}))
-      console.log(dataByDate)
       return dataByDate
     },
   },
