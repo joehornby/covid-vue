@@ -43,18 +43,8 @@
 
 <script>
 import { boroughInfo } from '../borough-info'
-import * as THREE from 'three'
-import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader'
 
 export default {
-  static() {
-    return {
-      scene: null,
-      camera: null,
-      renderer: THREE.WebGLRenderer,
-      mesh: new THREE.Mesh
-    }
-  },
   props: {
     currentData: Array
   },
@@ -72,125 +62,8 @@ export default {
       return Math.max(...boroughInfo.map(o => o.grid.col), 0)
     }
   },
-  mounted() {
-    // this.scene = new THREE.Scene()
-    // this.init()
-    // this.render()
-  },
-  methods: {
-    init: function() {
-      this.createScene()
-      this.createCamera()
-      this.createMap()
-      this.addSpotLight()
-      this.addAmbientLight()
-      window.addEventListener('resize', this.onResize())
-    },
-    onResize: function() {
-      let container = document.getElementById('map-container')
-      this.renderer.setSize(container.clientWidth, container.clientHeight)
-      this.renderer.setPixelRatio(window.devicePixelRatio)
-      this.camera.aspect = container.clientWidth / container.clientHeight;
-      this.camera.updateProjectionMatrix();
-    },
-    createScene: function() {
-      this.renderer = new THREE.WebGLRenderer({
-        antialias: true,
-        alpha: true
-      })
-      let container = document.getElementById('map-container')
-      this.renderer.setSize(container.clientWidth, container.clientHeight)
-      this.renderer.setPixelRatio(window.devicePixelRatio)
-      this.renderer.setClearColor(new THREE.Color('#f2f2f2'))
-      container.appendChild(this.renderer.domElement)
-    },
-    createCamera: function() {
-      let container = document.getElementById('map-container')
-      let aspect = container.clientWidth / container.clientHeight
-      console.log(aspect)
-      // let d = 20
-      // this.camera = new THREE.OrthographicCamera( - d * aspect, d * aspect, d, -d, 1, 1000 )
-      this.camera = new THREE.PerspectiveCamera(100, aspect, 0.01, 1000)
-      // this.camera.position.set( d, d, d )
-      // this.camera.lookAt( this.scene.position )
-
-    },
-    createMap: function() {
-      // Reference SVG markup
-      const svgMarkup = document.querySelector('svg').outerHTML
-
-      // Instantiate SVG Loader
-      const loader = new SVGLoader()
-
-      // Parse SVG markup
-      const svgData = loader.parse( svgMarkup )
-
-      // Group for SVG paths and shapes
-      const svgGroup = new THREE.Group()
-
-      const material = new THREE.MeshLambertMaterial({
-        color: 0x777777,
-        emissive: 0xf2f2f2,
-        emissiveIntensity: .5,
-        side: THREE.DoubleSide
-      })
-      
-      svgData.paths.forEach((path) => {
-        // Get area code from svg path markup
-        const areaCode = path.userData.node.attributes.data_name.value
-        // Each path has one shape
-        const shape = path.toShapes(true)
-        const geometry = new THREE.ExtrudeGeometry(shape, {
-          depth: 50,
-          bevelEnabled: false
-        })
-        // Set area code as Three.js shape name to enable geometry updates later
-        geometry.name = areaCode
-        // console.log(geometry)
-
-        // Create mesh
-        const mesh = new THREE.Mesh(geometry, material)
-
-        // Add it to the group
-        svgGroup.add(mesh)
-      })
-
-      const box = new THREE.Box3().setFromObject(svgGroup);
-      const size = new THREE.Vector3();
-      box.getSize(size);
-
-      const yOffset = size.y / -2;
-      const xOffset = size.x / -2;
-
-      // Offset all of group's elements, to center them
-      svgGroup.children.forEach(item => {
-        item.position.x = xOffset;
-        item.position.y = yOffset;
-      });
-
-      this.scene.add(svgGroup)
-
-    },
-    addSpotLight: function(color) {
-      const light = new THREE.SpotLight(color, 2, 1000)
-      light.position.set(0,0,50)
-      this.scene.add(light)
-    },
-    addAmbientLight: function() {
-      const light = new THREE.AmbientLight('#fff', 0.5)
-      this.scene.add(light)
-    },
-    updateHeights: function() {
-
-      // boroughInfo.forEach
-      // let areaCode = path.userData.node.attributes.data_name.value
-      // let newCases = 
-    },
-    render: function() {
-      this.renderer.render(this.scene, this.camera);
-      this.camera.lookAt( this.scene.position )
-    }
-  }
+  mounted() {},
+  methods: {}
 }
 </script>
 
