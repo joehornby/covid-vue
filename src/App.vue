@@ -23,6 +23,20 @@
           <Counter :totalCases="currentTotal"/>
       </section>
       <div class="controls">
+        <!-- Time range slider -->
+        <!-- <vue-slider
+          v-model="indexRange"
+          :min-range="10"
+          :max-range="stopIndex"
+        /> -->
+        <!-- Scrub slider -->
+        <vue-slider 
+          v-model="currentIndex" 
+          contained:true 
+          :min="startIndex"
+          :max="stopIndex"
+          tooltip="none"
+        />
         <button @click="resetAnimation">Reset</button>
         <button v-show="!isPlaying" @click="startAnimation">&#9654;  Start</button>
         <button v-show="isPlaying" @click="stopAnimation">&#9632;  Pause</button>
@@ -33,7 +47,7 @@
 
 <script>
 import * as d3 from 'd3'
-
+import VueSlider from 'vue-slider-component'
 
 import TotalBar from './components/TotalBar'
 import BoroughMap from './components/BoroughMap'
@@ -45,7 +59,7 @@ export default {
     TotalBar,
     BoroughMap,
     Counter,
-
+    VueSlider,
   },
   data() {
     return {
@@ -186,6 +200,7 @@ export default {
 
 <style lang="scss">
 @import '@/styles/_variables.scss';
+@import '@/styles/_slider.scss';
 
 * {
   box-sizing: border-box;
@@ -267,6 +282,14 @@ button {
   &:hover {
     color: rgba($light-grey, 60%);
   }
+}
+
+/* Slider */
+
+.vue-slider {
+  grid-column: span 2;
+  margin-bottom: 1rem;
+  margin-right: 1rem;
 }
 
 </style>
