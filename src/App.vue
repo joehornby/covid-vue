@@ -6,8 +6,7 @@
         <h1>London<br/>COVID-19 Cases</h1>
       <h2>Total cases<br/>{{ currentBorough }}</h2>
       <h2>
-        {{ currentDate.day }}.{{ currentDate.month }}<br />
-      {{ currentDate.year }}</h2>
+        {{ currentDate.day }}.{{ currentDate.month }}.{{ currentDate.year }}</h2>
       
       </header>
       
