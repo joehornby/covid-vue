@@ -6,6 +6,9 @@ A graphic presentation of COVID-19 cases in London built in Vue with a little D3
 
 A [live demo](http://jh-covid-london-202011.netlify.app) is currently hosted on Netlify.
 
+> :warning: **Tested on Firefox and Chrome Only**. 
+> This app makes heavy use of the "exclusion" mix blend mode on SVG elements, which I have not yet optimised for Safari & other browsers.
+
 ## Project setup
 ```
 yarn install
