@@ -198,10 +198,10 @@ body {
   color: $light-grey;
   mix-blend-mode: exclusion;
 }
-h1, h2, h3, h4, p {
+h1, h2, h3, h4, p, button {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-weight: 200;
-  font-size: calc(1.5rem + 1vw);
+  font-size: calc(1.2rem + 1vw);
   letter-spacing: -0.02em;
 }
 

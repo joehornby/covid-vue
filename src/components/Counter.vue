@@ -24,10 +24,13 @@ export default {
     top: 0;
     left: 0;
     right: 0;
-    bottom: 0;
+    bottom: 20vh;
     pointer-events: none;
     display: flex;
     align-items: flex-end;
+    @media (min-width: $bp){
+      bottom: 0;
+    }
   }
   .counter {
     font-family: $display-font;

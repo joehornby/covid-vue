@@ -94,7 +94,8 @@ export default {
   #map-container {
     position: absolute;
     width: 100%;
-    height: 100vh;
+    top: 25vh;
+    bottom: 0;
     display: flex;
     align-items: center;
     @media(min-width: $bp){
@@ -102,7 +103,7 @@ export default {
       transform: translateX(100%);
     }
     svg {
-      width: 100%;
+      width: 88%;
     }
     #map {
       fill: $light-grey;
@@ -119,10 +120,14 @@ export default {
 
     .details {
       position: fixed;
-      width:100%;
-      bottom: 11rem;
-      left: 0;
+      width: 50%;
+      bottom: 2rem;
+      left: 50%;
       right: 0;
+      @media (min-width: $bp){
+        left: 0;
+        width: 100%;
+      }
     }
   }
 </style>
