@@ -121,7 +121,7 @@ export default {
     .details {
       position: fixed;
       width: 50%;
-      bottom: 2rem;
+      bottom: 8rem;
       left: 50%;
       right: 0;
       @media (min-width: $bp){

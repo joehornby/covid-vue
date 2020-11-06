@@ -117,8 +117,9 @@ export default {
       })
     },
     getData(api) {
-      this.$http.get(api)
+      return this.$http.get(api)
         .then((response) => {
+          console.log(response.data.rows)
           return response.data.rows
         })
     },
@@ -129,11 +130,6 @@ export default {
       totalsByDate = [...totalsByDate].flatMap(([key, value]) => ({date: key, total_cases: value}))
 
       return totalsByDate
-    },
-    parseDate(dateString) {
-      // Convert date string to date format
-      const parseDate = d3.timeParse('%Y-%m-%d')
-      return parseDate(dateString)
     },
     onResize() {
       this.windowHeight = window.innerHeight
