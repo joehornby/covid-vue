@@ -8,9 +8,11 @@
       <h2>
         {{ currentDate.day }}.{{ currentDate.month }}<br />
       {{ currentDate.year }}</h2>
+      
       </header>
       
-      <button @click="startAnimation">Go</button>
+      
+      
       <section id="data">
         <BoroughMap :currentData="dataGroupedByDate[currentIndex].data" />
         <TotalBar 
@@ -21,7 +23,9 @@
           <Counter :totalCases="currentTotal"/>
       </section>
       <div class="controls">
-        
+        <button @click="resetAnimation">Reset</button>
+        <button v-show="!isPlaying" @click="startAnimation">Start &#9654;</button>
+        <button v-show="isPlaying" @click="stopAnimation">Pause</button>
       </div>
     </div>
   </div>
@@ -56,7 +60,9 @@ export default {
       windowHeight: window.innerHeight,
       updateInterval: 0.5,
       animationId: undefined,
-      indexRange: [0, this.stopIndex]
+      indexRange: [0, this.stopIndex],
+      startIndex: 0,
+      isPlaying: false
     }
   },
   computed: {
@@ -133,8 +139,7 @@ export default {
       this.windowHeight = window.innerHeight
     },
     startAnimation() {
-      console.log('starting animation')
-      this.currentIndex = 0
+      this.isPlaying = true
       this.animationId = setInterval(() => {
         if (this.currentIndex < this.stopIndex) {
           this.currentIndex ++
@@ -142,13 +147,22 @@ export default {
           clearInterval(this.animationId)
         }
       }, this.updateInterval * 1000)
-      }
+    },
+    stopAnimation() {
+      // Clear animation interval
+      clearInterval(this.animationId)
+      this.isPlaying = false
+    },
+    resetAnimation() {
+      this.currentIndex = this.startIndex
+    }
   }, 
   async created() {
     try {
       if (this.useApi) {
         // Fetch data from API
         this.covidData = await this.getData(this.covidApi)
+        console.log(this.covidData)
       } else {
         // Fetch local data
         this.covidData = await this.loadData(this.covidCsv)
@@ -229,6 +243,34 @@ header {
 }
 .slide-leave-to {
   transform: translateY(20px);
+}
+
+/* Buttons / controls */
+.controls {
+  position: absolute;
+  bottom: 1rem;
+  display: grid;
+  width: 50%;
+  left: 50%;
+  grid-template-columns: 1fr 1fr;
+}
+button {
+  display: block;
+  width: max-content;
+  text-align: left;
+  // Reset
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  background: none;
+  // Styles
+  color: $light-grey;
+  mix-blend-mode: exclusion;
+  &:hover {
+    color: rgba($light-grey, 60%);
+  }
 }
 
 </style>
