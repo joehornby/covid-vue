@@ -11,15 +11,16 @@
       
       </header>
       
-      
-      
       <section id="data">
+        <!-- London Borough SVG map -->
         <BoroughMap :currentData="dataGroupedByDate[currentIndex].data" />
+        <!-- Full page bar representing total cases -->
         <TotalBar 
           v-if="dataLoaded" 
           :totalCases="currentTotal" 
           :maxCases="maxCases" 
           :windowHeight="windowHeight" />
+          <!-- Display counter -->
           <Counter :totalCases="currentTotal"/>
       </section>
       <div class="controls">
@@ -37,6 +38,7 @@
           :max="stopIndex"
           tooltip="none"
         />
+        <!-- Transport controls -->
         <button @click="resetAnimation">Reset</button>
         <button v-show="!isPlaying" @click="startAnimation">&#9654;  Start</button>
         <button v-show="isPlaying" @click="stopAnimation">&#9632;  Pause</button>
@@ -46,9 +48,11 @@
 </template>
 
 <script>
+// External libraries
 import * as d3 from 'd3'
 import VueSlider from 'vue-slider-component'
 
+// Local components
 import TotalBar from './components/TotalBar'
 import BoroughMap from './components/BoroughMap'
 import Counter from './components/Counter'
@@ -92,12 +96,15 @@ export default {
       return boroughs
     },
     currentBorough() {
+      // Currently only one view : All boroughs
+      // TODO: Make views for each borough using components created for total cases.
       return "All boroughs"
     },
     currentTotal() {
       return this.combinedData[this.currentIndex].total_cases
     },
     currentDate() {
+      // Slice date at current index for more flexible layout
       let dateSliced = this.combinedData[this.currentIndex].date.split("-")
       let date =  { 
           year: dateSliced[0],
@@ -107,6 +114,7 @@ export default {
       return date 
     },
     stopIndex() {
+      // End of data
       return this.combinedData.length - 1
     },
     maxCases() {
@@ -120,6 +128,7 @@ export default {
     },
   },
   methods: {
+    // Load local csv data
     loadData(csv) {
       return d3.csv(csv).then((data) => {
         data.forEach((d) => {
@@ -130,6 +139,9 @@ export default {
         return data
       })
     },
+    // Get external data from data.london
+    // This can be selected bye setting the 'useApi' bool to true in data()
+    // TODO: test this still works — not tested ince early development. Data structure may not match.
     getData(api) {
       return this.$http.get(api)
         .then((response) => {
@@ -148,6 +160,7 @@ export default {
     onResize() {
       this.windowHeight = window.innerHeight
     },
+    // This is the master clock, triggering steps through the data.
     startAnimation() {
       this.isPlaying = true
       this.animationId = setInterval(() => {
@@ -180,6 +193,8 @@ export default {
 
       // Get an array of [date, total_cases] across all areas and store it in
       this.combinedData = await this.getTotalsByDate(this.covidData)
+
+      // Set bool so data-driven parts of the DOM can safely load
       this.dataLoaded = true
       
     } catch (err) {
