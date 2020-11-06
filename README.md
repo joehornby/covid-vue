@@ -4,7 +4,7 @@ A graphic presentation of COVID-19 cases in London built in Vue with a little D3
 
 # Live Demo
 
-A [live demo](jh-covid-london-202011.netlify.app) is currently hosted on Netlify.
+A [live demo](http://jh-covid-london-202011.netlify.app) is currently hosted on Netlify.
 
 ## Project setup
 ```
