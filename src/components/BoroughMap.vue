@@ -37,17 +37,19 @@
         <rect area_code="E09000029" id="SUTT" x="156" y="312" width="50" height="50" @mouseover="show('E09000029')" @mouseleave="hide('E09000029')"/>
       </g>
     </svg>
-  <div class="details" v-show="showDetail">
-    <h3>{{ detail.borough }}</h3>
-    <p>New cases: {{ detail.newCases }}</p>
-    <p>Total cases: {{ detail.totalCases }}</p>
-  </div>
+  <BoroughDetail 
+    :detail="detail" 
+    v-show="showDetail" />
   </div>
 </template>
 
 <script>
+import BoroughDetail from './BoroughDetail'
 
 export default {
+  components:{
+    BoroughDetail
+  },
   props: {
     currentData: Array
   },
