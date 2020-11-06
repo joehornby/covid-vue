@@ -58,7 +58,6 @@ import BoroughMap from './components/BoroughMap'
 import Counter from './components/Counter'
 
 export default {
-  name: 'COVID',
   components: {
     TotalBar,
     BoroughMap,
@@ -200,7 +199,7 @@ export default {
     } catch (err) {
       console.log(err)
     }
-
+    document.title = "COVID-19 — Joe Hornby";
   },
   mounted() {
     this.$nextTick(() => {
