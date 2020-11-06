@@ -21,14 +21,7 @@
           <Counter :totalCases="currentTotal"/>
       </section>
       <div class="controls">
-        <VueSimpleRangeSlider
-                      style="width: 100px"
-                      :min=0
-                      :max=stopIndex
-                      v-model="indexRange"
-                      barColor="#f2f2f2"
-                      activeBarColor="#f2f2f2"
-              />
+        
       </div>
     </div>
   </div>
@@ -36,8 +29,7 @@
 
 <script>
 import * as d3 from 'd3'
-import VueSimpleRangeSlider from 'vue-simple-range-slider'
-import 'vue-simple-range-slider/dist/vueSimpleRangeSlider.css'
+
 
 import TotalBar from './components/TotalBar'
 import BoroughMap from './components/BoroughMap'
@@ -49,7 +41,7 @@ export default {
     TotalBar,
     BoroughMap,
     Counter,
-    VueSimpleRangeSlider,
+
   },
   data() {
     return {
@@ -209,7 +201,7 @@ body {
 h1, h2, h3, h4, p {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-weight: 200;
-  font-size: 2rem;
+  font-size: calc(1.5rem + 1vw);
   letter-spacing: -0.02em;
 }
 
