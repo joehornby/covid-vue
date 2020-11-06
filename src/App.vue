@@ -24,8 +24,8 @@
       </section>
       <div class="controls">
         <button @click="resetAnimation">Reset</button>
-        <button v-show="!isPlaying" @click="startAnimation">Start &#9654;</button>
-        <button v-show="isPlaying" @click="stopAnimation">Pause</button>
+        <button v-show="!isPlaying" @click="startAnimation">&#9654;  Start</button>
+        <button v-show="isPlaying" @click="stopAnimation">&#9632;  Pause</button>
       </div>
     </div>
   </div>
@@ -199,7 +199,7 @@ html, body, #app {
 body {
   overflow: hidden;
   background-color: $light-grey;
-  background-image: radial-gradient(rgba($light-grey, 20%) 5%, transparent 5%);
+  background-image: radial-gradient(rgba(242, 242, 242, 0.2) 5%, transparent 5%);
   background-position: 0 0;
   background-size: 2rem 2rem;
   background-blend-mode: exclusion;
